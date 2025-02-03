@@ -4,14 +4,14 @@ const Product = () => {
 
     const [products, setProducts] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchProducts = async () => {
             const response = await fetch('https://dummyjson.com/products');
             const data = await response.json();
             setProducts(data.products);
-        }
+        };
         fetchProducts();
-    }, [])
+    }, []);
 
     return <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -28,12 +28,12 @@ const Product = () => {
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-sm text-gray-700">
-                    <a href={product.href}>
+                    <a href="">
                       <span aria-hidden="true" className="absolute inset-0" />
-                      {product.name}
+                      {product.title}
                     </a>
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                  <p className="mt-1 text-sm text-gray-500">{product.category}</p>
                 </div>
                 <p className="text-sm font-medium text-gray-900">{product.price}</p>
               </div>
