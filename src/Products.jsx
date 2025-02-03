@@ -1,32 +1,44 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Product = () => {
+    // const [products, setProducts] = useState([]);
+    // const [isLoading, setIsLoading] = useState(false);
+    // const [error, setError] = useState(null);
+    
+    const Product = () => {
 
-    const [products, setProducts] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const fetchProducts = async () => {
+        const response = await fetch('https://dummyjson.com/products');
+        const data = await response.json();
+        return data.products;
+    };
+    
+    const Products = () =>{
+        const {isLoading, error, data: products} = useQuery({ queryKey: ['products'], queryFn: fetchProducts })
+    }
 
-    useEffect(() => {
-        const fetchProducts = async () => {
+    
+
+    // useEffect(() => {
+    //     const fetchProducts = async () => {
            
-            try{ 
+    //         try{ 
                 
-                setIsLoading(true);
-                setError(null);
-                const response = await fetch('https://dummyjson.com/products');
-                const data = await response.json();
-                setProducts(data.products);
+    //             setIsLoading(true);
+    //             setError(null);
+    //             const response = await fetch('https://dummyjson.com/products');
+    //             const data = await response.json();
+    //             setProducts(data.products);
 
-            }
-            catch (err){
-                setError(err.message);
-                setIsLoading(false)
-            }
+    //         }
+    //         catch (err){
+    //             setError(err.message);
+    //             setIsLoading(false)
+    //         }
                 
-        };
-        fetchProducts();
-    }, []);
+    //     };
+    //     fetchProducts();
+    // }, []);
 
     if (isLoading){
         return <h1>Loading...</h1>
