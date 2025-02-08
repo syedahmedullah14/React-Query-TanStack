@@ -12,8 +12,8 @@ import axios from "axios";
         const params= useParams();
 
         const mutation = useMutation({
-            mutationFn: (newTodo) => {
-                return axios.post('/todos', newTodo)
+            mutationFn: (newProduct) => {
+                return axios.put("https://dummyjson.com/products/", newProduct)
             },
         });
 
@@ -31,15 +31,22 @@ import axios from "axios";
             // staleTime: 10000,
             })
             
-            if (isLoading){
+            if (mutation.isLoading){
                 return <h1>Loading...</h1>
             }
         
-            if(error){
-                return <h3>Error: {error.message}</h3> 
+            if(mutation.isErrore){
+                return <h3>Error: {mutation.error.message}</h3> 
             }
         
             return <div>Product: {product.title}</div>;
+            <button onClick={
+                () => {
+                    mutation.mutate({title: 'Updated product'});
+                }
+            }>
+                    Create Product
+            </button>
 
 
 };
