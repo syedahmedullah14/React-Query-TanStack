@@ -1,14 +1,21 @@
 import {
+    useMutation,
     useQuery,
   } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom';
-
+import axios from "axios";
 
   
 
     const Product = () => {
 
         const params= useParams();
+
+        const mutation = useMutation({
+            mutationFn: (newTodo) => {
+                return axios.post('/todos', newTodo)
+            },
+        });
 
         const fetchProduct = async () => {
             const response = await fetch('https://dummyjson.com/products/${params.productId}');
