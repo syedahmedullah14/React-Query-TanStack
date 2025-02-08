@@ -16,17 +16,25 @@ import { useParams } from 'react-router-dom';
             return data.products;
         };
          
-        const Products = () =>{
             const {
             isLoading, 
             error, 
-            data: products,
+            data: product,
             } = useQuery({ queryKey: ['product', params.productId], queryFn: fetchProduct, 
             // staleTime: 10000,
             })
-            return <div>Products</div>;
+            
+            if (isLoading){
+                return <h1>Loading...</h1>
+            }
+        
+            if(error){
+                return <h3>Error: {error.message}</h3> 
+            }
+        
+            return <div>Product: {product.title}</div>;
 
 
 };
-    }
+
 export default Product;
