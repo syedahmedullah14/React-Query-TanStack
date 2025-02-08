@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+    useQuery,
+  } from '@tanstack/react-query'
 
     // const [products, setProducts] = useState([]);
     // const [isLoading, setIsLoading] = useState(false);
     // const [error, setError] = useState(null);
     
-    const Product = () => {
 
     const fetchProducts = async () => {
         const response = await fetch('https://dummyjson.com/products');
@@ -14,11 +15,16 @@ import { Link } from "react-router-dom";
     };
     
     const Products = () =>{
-        const {isLoading, error, data: products} = useQuery({ queryKey: ['products'], queryFn: fetchProducts })
-    }
-
+        const {
+            isLoading, 
+            error, 
+            data: products,
+        } = useQuery({ queryKey: ['products'], queryFn: fetchProducts, 
+          // staleTime: 10000,
+         })
     
 
+    
     // useEffect(() => {
     //     const fetchProducts = async () => {
            
@@ -45,10 +51,12 @@ import { Link } from "react-router-dom";
     }
 
     if(error){
-        return <h3>Error: {error}</h3> 
+        return <h3>Error: {error.message}</h3> 
     }
 
-    return <div className="bg-white">
+
+    return (
+    <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
 
@@ -77,6 +85,6 @@ import { Link } from "react-router-dom";
         </div>
       </div>
     </div>
-};
-
-export default Product;
+    )
+    }
+export default Products;
